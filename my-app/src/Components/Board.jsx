@@ -4,22 +4,18 @@ import Box from '@mui/system/Box';
 import styled from '@mui/system/styled';
 import React from 'react'
 import { useState, useEffect } from 'react';
+import Button from '@mui/material/Button'
 
 const Item = styled('div')(({ theme }) => ({
-  height:'100px',
   backgroundColor: '#fff',
-  border: '1px solid',
-  borderColor: 'black',
-  borderRadius: '4px',
+  borderRadius: '6px',
   display: 'flex',
   justifyContent: 'center',
+  justifyItems: 'center',
   alignItems: 'center',
-  
   textAlign: 'center',
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-    borderColor: '#444d58',
-  }),
+  fontSize:'150px',
+  color: '#2c016d'
 }));
 
 const winningCombos = [
@@ -71,24 +67,44 @@ export default function Board() {
     else{
       setCurrentPlayer('x')
     }
+  }
 
-
-   
+  const restartGame = () =>{
+    setGrid(Array(9).fill(''))
+    setWinner('')
+    
   }
 
   return (
 
-  <div>
-    <h3>Current Player: {currentPlayer} </h3>
-    {winner && <h4>Player {winner} Wins!</h4>}
-  <div style = {{
-      display:'flex',
-      justifyContent:'center',
-      alignItems: 'center',
-      height:'100vh',
+  <div style= {{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh', 
+    textAlign: 'center'
+  }
+   
+  }>
+    <h1 style = {{
+      color: 'white',
+      fontSize:'100px',
+    }}>Tic-Tac-Toe</h1>
+    {!winner && <h2 style = {{
+      color: 'white',
+      marginTop: '-40px'
+    }}>Current Player: {currentPlayer} </h2>}
 
-    }}>
-      <Box sx={{width:600, height:600, mt:-20}}>
+    {winner && <h2
+      style  = {{
+      color: 'white',
+      marginTop: '-40px'
+      }}>
+      Player {winner} Wins!
+      </h2>}
+
+      <Box sx={{width:600, height:500}}>
             <Grid container spacing = {2}> 
               <Grid item xs={4}>
                 <Item sx = {{height:200}} onClick={() => boxChecked(0)}>{grid[0]}</Item>
@@ -123,12 +139,15 @@ export default function Board() {
                 <Item sx = {{height:200}} onClick={() => boxChecked(8)}> {grid[8]} </Item>
               </Grid>
               
-              
             </Grid>
         </Box>
 
-    </div>
+        <Button variant="filled" sx = {{
+          mt:20, 
+          backgroundColor: '#2c016d',
+          color: '#ffff'
 
+          }} onClick = {restartGame}>Play Again</Button>
 
 
       
