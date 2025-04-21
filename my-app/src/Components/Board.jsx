@@ -38,6 +38,7 @@ export default function Board() {
 
   const[grid, setGrid] = useState(Array(9).fill(''))
   const [currentPlayer, setCurrentPlayer] = useState('x')
+  const[winner,setWinner] = useState('')
 
   useEffect(() =>{
     checkWinner()
@@ -48,6 +49,7 @@ export default function Board() {
       const[a,b,c] = combo
       if(grid[a] === grid[b] && grid[a] == grid[c] && grid[a]){
         console.log("winner")
+        setWinner(grid[a])
         return
       }
     }
@@ -78,6 +80,7 @@ export default function Board() {
 
   <div>
     <h3>Current Player: {currentPlayer} </h3>
+    {winner && <h4>Player {winner} Wins!</h4>}
   <div style = {{
       display:'flex',
       justifyContent:'center',
