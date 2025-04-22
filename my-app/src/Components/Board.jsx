@@ -5,6 +5,7 @@ import styled from '@mui/system/styled';
 import React from 'react'
 import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button'
+import { useLocation } from 'react-router-dom';
 
 const Item = styled('div')(({ theme }) => ({
   backgroundColor: '#fff',
@@ -31,16 +32,21 @@ const winningCombos = [
 
 
 export default function Board() {
-
+  const location = useLocation()
   const[grid, setGrid] = useState(Array(9).fill(''))
-  const [currentPlayer, setCurrentPlayer] = useState('x')
+  const{player1, player2} = location.state || {}
+  const [currentPlayer, setCurrentPlayer] = useState('o')
   const[winner,setWinner] = useState('')
+
 
   useEffect(() =>{
     checkWinner()
+  
   },[grid])
 
   const checkWinner = () =>{
+    console.log(player1)
+    console.log(location)
     for (let combo of winningCombos ){
       const[a,b,c] = combo
       if(grid[a] === grid[b] && grid[a] == grid[c] && grid[a]){
@@ -145,7 +151,8 @@ export default function Board() {
         <Button variant="filled" sx = {{
           mt:20, 
           backgroundColor: '#2c016d',
-          color: '#ffff'
+          color: '#ffff',
+          padding: '20px'
 
           }} onClick = {restartGame}>Play Again</Button>
 

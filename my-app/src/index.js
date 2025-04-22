@@ -3,11 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Board from './Components/Board';
+import ChoosePlayers from './Components/ChoosePlayers';
+import{createBrowserRouter, RouterProvider} from 'react-router-dom'
+
+
+const router = createBrowserRouter([
+  {path:'/', element: <ChoosePlayers/>}, 
+  {path:'/board', element: <Board/>}
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
