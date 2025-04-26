@@ -34,8 +34,8 @@ const winningCombos = [
 export default function Board() {
   const location = useLocation()
   const[grid, setGrid] = useState(Array(9).fill(''))
-  const{player1, player2} = location.state || {}
-  const [currentPlayer, setCurrentPlayer] = useState('o')
+  const{player1, player2, symbol1 = 'X', symbol2 = 'O'} = location.state || {}
+  const [currentPlayer, setCurrentPlayer] = useState(symbol1)
   const[winner,setWinner] = useState('')
 
 
@@ -49,7 +49,7 @@ export default function Board() {
     console.log(location)
     for (let combo of winningCombos ){
       const[a,b,c] = combo
-      if(grid[a] === grid[b] && grid[a] == grid[c] && grid[a]){
+      if(grid[a] === grid[b] && grid[a] === grid[c] && grid[a]){
         console.log("winner")
         setWinner(grid[a])
         return
@@ -59,7 +59,7 @@ export default function Board() {
 
 
   const boxChecked = (index) =>{
-    if(grid[index] != ''){
+    if(grid[index] !== ''){
       return
     }
     console.log('box checked')
@@ -67,11 +67,10 @@ export default function Board() {
     newGrid[index] = currentPlayer;
     setGrid(newGrid)
 
-    if (currentPlayer == 'x'){
-      setCurrentPlayer('o')
-    }
-    else{
-      setCurrentPlayer('x')
+    if (currentPlayer === symbol1){
+      setCurrentPlayer(symbol2)
+    } else {
+      setCurrentPlayer(symbol1)
     }
   }
 
